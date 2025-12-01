@@ -1,0 +1,7 @@
+{
+  "appName": "reflector",
+  "targetNamespace": "kube-system",
+  "chartRepo": "https://emberstack.github.io/helm-charts",
+  "chartName": "reflector",
+  "chartVersion": "7.1.26"
+}
