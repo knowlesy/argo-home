@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: homelab-apps
+  namespace: argocd
+spec:
+  # 1. THE GENERATOR
+  generators:
+  - git:
+      repoURL: https://github.com/knowlesy/argo-home.git
+      revision: HEAD
+      files:
+      - path: "apps-config/*.json"
+  # 2. THE TEMPLATE
+  template:
+    metadata:
+      name: '{{appName}}'
+    spec:
+      project: default
+
+      sources:
+      # Source A: The Private Values (Reference)
+      - repoURL: https://github.com/knowlesy/argo-private.git
+        targetRevision: HEAD
+        ref: private-values
+
+      # Source B: The Public Helm Chart (Dynamic)
+      - repoURL: '{{chartRepo}}'
+        chart: '{{chartName}}'
+        targetRevision: '{{chartVersion}}'
+        helm:
+          releaseName: '{{appName}}'
+          valueFiles:
+          # This expects a folder in your private repo matching the appName
+          - '$private-values/configs/{{appName}}/values.yaml'
+
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{targetNamespace}}'
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true

@@ -1,0 +1,7 @@
+{
+  "appName": "pihole",
+  "targetNamespace": "pihole",
+  "chartRepo": "https://mojo2600.github.io/pihole-kubernetes/",
+  "chartName": "pihole",
+  "chartVersion": "2.22.0"
+}
