@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: pihole
-  namespace: argocd
+  namespace: platform
 spec:
   project: default
   source:
@@ -11,10 +11,11 @@ spec:
     targetRevision: 2.22.0
     helm:
       releaseName: pihole
-      values:
+      # The pipe | below is crucial. It tells YAML this is a string block.
+      values: |
         serviceWeb:
           type: LoadBalancer
-        adminPassword: "admin" # In a real setup, use secrets!
+        adminPassword: "admin"
   destination:
     server: https://kubernetes.default.svc
     namespace: pihole
