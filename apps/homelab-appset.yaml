@@ -4,40 +4,44 @@ metadata:
   name: homelab-apps
   namespace: argocd
 spec:
-  # 1. THE GENERATOR
   generators:
   - git:
       repoURL: https://github.com/knowlesy/argo-home.git
       revision: HEAD
       files:
       - path: "apps-config/*.json"
-  # 2. THE TEMPLATE
   template:
     metadata:
       name: '{{appName}}'
     spec:
       project: default
-
       sources:
-      # Source A: The Private Values (Reference)
+      # 1. Define Private Repo Reference
       - repoURL: https://github.com/knowlesy/argo-private.git
         targetRevision: HEAD
-        ref: private-values
+        ref: private-repo
 
-      # Source B: The Public Helm Chart (Dynamic)
+      # 2. Define Public Repo Reference (NEW)
+      - repoURL: https://github.com/knowlesy/argo-home.git
+        targetRevision: HEAD
+        ref: public-repo
+
+      # 3. The Chart & Value Files
       - repoURL: '{{chartRepo}}'
         chart: '{{chartName}}'
         targetRevision: '{{chartVersion}}'
         helm:
           releaseName: '{{appName}}'
           valueFiles:
-          # This expects a folder in your private repo matching the appName
-          - '$private-values/configs/{{appName}}/values.yaml'
+          # A. Load Public Config First
+          - '$public-repo/apps-values/{{appName}}/values.yaml'
+
+          # B. Load Private Config Second (Overrides public if keys match)
+          - '$private-repo/configs/{{appName}}/values.yaml'
 
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{targetNamespace}}'
-
       syncPolicy:
         automated:
           prune: true
