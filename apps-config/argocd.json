@@ -1,5 +1,6 @@
 {
   "appName": "argocd",
+  "targetNamespace": "argocd",
   "chartRepo": "https://argoproj.github.io/argo-helm",
   "chartName": "argo-cd",
   "chartVersion": "6.7.0" 
