@@ -5,11 +5,10 @@ server:
   - /shared/app
   - --redis
   - argocd-redis:6379
-  # Set service type to ClusterIP (default for Istio)
+
   service:
     type: ClusterIP
 
-# Add the Istio configuration here
 extraObjects:
 - apiVersion: networking.istio.io/v1alpha3
   kind: Gateway
