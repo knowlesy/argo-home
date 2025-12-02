@@ -11,6 +11,9 @@ spec:
   - repoURL: https://github.com/knowlesy/argo-home.git
     targetRevision: HEAD
     ref: home-repo
+  - repoURL: https://github.com/knowlesy/argo-private.git
+    targetRevision: HEAD
+    ref: private-repo
   - repoURL: https://argoproj.github.io/argo-helm
     chart: argo-cd
     targetRevision: 6.7.0
@@ -18,6 +21,10 @@ spec:
       releaseName: argocd
       valueFiles:
       - $home-repo/apps-values/argocd/values.yaml
+      - $private-repo/configs/argocd/values.yaml
+  - repoURL: https://github.com/knowlesy/argo-home.git
+    targetRevision: HEAD
+    path: apps
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
