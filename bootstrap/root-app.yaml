@@ -7,10 +7,17 @@ metadata:
     argocd.argoproj.io/sync-wave: "-1"
 spec:
   project: default
-  source:
-    repoURL: https://github.com/knowlesy/argo-home.git
+  sources:
+  - repoURL: https://github.com/knowlesy/argo-home.git
     targetRevision: HEAD
-    path: apps-values/argocd
+    ref: home-repo
+  - repoURL: https://argoproj.github.io/argo-helm
+    chart: argo-cd
+    targetRevision: 6.7.0
+    helm:
+      releaseName: argocd
+      valueFiles:
+      - $home-repo/apps-values/argocd/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
