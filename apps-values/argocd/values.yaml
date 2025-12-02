@@ -1,5 +1,9 @@
 fullnameOverride: argocd
 
+configs:
+  params:
+    server.insecure: true
+
 server:
   extraArgs:
   - --staticassets
@@ -20,8 +24,8 @@ extraObjects:
       istio: ingressgateway
     servers:
     - port:
-        number: 80
-        name: http
+        number: 5400
+        name: http-argocd
         protocol: HTTP
       hosts:
       - "*"
