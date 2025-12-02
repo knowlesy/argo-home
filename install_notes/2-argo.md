@@ -1,24 +1,41 @@
 
 Installing Argo
 
+
 ```
 kubectl create namespace argocd
-
 kubectl label namespace argocd istio-injection=enabled
 
+# Add port 5400 to Istio ingress gateway for ArgoCD
+kubectl patch svc istio-ingressgateway -n istio-system --type='json' \
+  -p='[{"op": "add", "path": "/spec/ports/-", "value": {"name": "http-argocd", "port": 5400, "protocol": "TCP", "targetPort": 5400}}]'
+```
 
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+Install ArgoCD via Helm
+
+```
+
+helm repo add argo https://argoproj.github.io/argo-helm
+helm repo update
+
+helm install argocd argo/argo-cd -n argocd \
+  -f apps-values/argocd/values.yaml \
+  --version 6.7.0
 
 kubectl apply -f bootstrap/root-app.yaml
+```
 
-#get the password 
+
+ Get the password 
+
+```
+
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
 
-#port forward 
-kubectl port-forward svc/argocd-server -n argocd 8080:443
 
-#URL: https://localhost:8080
 ```
+
+
 
 In your private repo create the following path 
 
