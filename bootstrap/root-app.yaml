@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/knowlesy/argo-home.git
     targetRevision: HEAD
-    path: infrastructure/argocd
+    path: apps-values/argocd
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
