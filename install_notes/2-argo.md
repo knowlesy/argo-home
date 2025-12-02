@@ -4,7 +4,7 @@ Installing Argo
 ```
 kubectl create namespace argocd
 
-kubectl -n argocd edit deploy argocd-server
+kubectl label namespace argocd istio-injection=enabled
 
 
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
