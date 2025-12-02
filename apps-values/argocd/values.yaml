@@ -20,11 +20,9 @@ extraObjects:
       istio: ingressgateway
     servers:
     - port:
-        number: 443
-        name: tls
-        protocol: TLS
-      tls:
-        mode: PASSTHROUGH
+        number: 80
+        name: http
+        protocol: HTTP
       hosts:
       - "*"
 - apiVersion: networking.istio.io/v1alpha3
@@ -36,13 +34,9 @@ extraObjects:
     - "*"
     gateways:
     - argocd-gateway
-    tls:
-    - match:
-      - port: 443
-        sniHosts:
-        - "*"
-      route:
+    http:
+    - route:
       - destination:
           host: argocd-server
           port:
-            number: 443
+            number: 80
