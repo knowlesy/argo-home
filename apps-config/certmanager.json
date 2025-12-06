@@ -3,5 +3,6 @@
   "targetNamespace": "cert-manager",
   "chartRepo": "https://charts.jetstack.io",
   "chartName": "cert-manager",
-  "chartVersion": "v1.14.0"
+  "chartVersion": "v1.14.0",
+  "autoSync": "false"
 }

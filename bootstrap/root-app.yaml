@@ -1,16 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd-infra
+  name: argocd
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "-1"
 spec:
   project: default
   sources:
   - repoURL: https://github.com/knowlesy/argo-home.git
     targetRevision: HEAD
-    ref: home-repo
+    ref: public-repo
   - repoURL: https://github.com/knowlesy/argo-private.git
     targetRevision: HEAD
     ref: private-repo
@@ -20,9 +18,24 @@ spec:
     helm:
       releaseName: argocd
       valueFiles:
-      - $home-repo/apps-values/argocd/values.yaml
+      - $public-repo/apps-values/argocd/values.yaml
       - $private-repo/configs/argocd/values.yaml
-  - repoURL: https://github.com/knowlesy/argo-home.git
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: applicationset-controller
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/knowlesy/argo-home.git
     targetRevision: HEAD
     path: apps
   destination:
