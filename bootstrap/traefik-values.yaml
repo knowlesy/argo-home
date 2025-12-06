@@ -1,5 +1,6 @@
 # Traefik Helm Chart Values (v34+)
-# Managed by ArgoCD - replaces K3s built-in Traefik
+# Copy this to: apps-values/traefik/values.yaml
+# Or use directly with: helm install traefik traefik/traefik -n traefik --create-namespace -f bootstrap/example-traefik-values.yaml
 
 ports:
   web:
