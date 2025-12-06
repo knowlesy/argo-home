@@ -1,8 +1,8 @@
 {
     "appName": "traefik",
-    "targetNamespace": "kube-system",
+    "targetNamespace": "traefik",
     "chartRepo": "https://traefik.github.io/charts",
     "chartName": "traefik",
-    "chartVersion": "26.0.0",
+    "chartVersion": "33.0.0",
     "autoSync": "false"
 }
