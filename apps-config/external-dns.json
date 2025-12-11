@@ -1,7 +1,7 @@
 {
     "appName": "external-dns",
     "targetNamespace": "kube-system",
-    "chartRepo": "https://charts.bitnami.com/bitnami",
+    "chartRepo": "https://kubernetes-sigs.github.io/external-dns/",
     "chartName": "external-dns",
     "chartVersion": "1.19.0",
     "autoSync": "false"
