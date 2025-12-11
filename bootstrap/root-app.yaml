@@ -14,7 +14,7 @@ spec:
     ref: private-repo
   - repoURL: https://argoproj.github.io/argo-helm
     chart: argo-cd
-    targetRevision: 6.7.0
+    targetRevision: 9.1.6
     helm:
       releaseName: argocd
       valueFiles:

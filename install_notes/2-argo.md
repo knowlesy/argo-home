@@ -9,6 +9,8 @@ helm repo update
 
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+kubectl patch configmap argocd-cmd-params-cm -n argocd --type merge -p '{"data":{"server.insecure":"true"}}'
 ```
 
 Configure 
@@ -36,10 +38,6 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 ```
 
 
-
-In your private repo create the following path 
-
-`configs/pihole/values.yaml` 
 
 Populate the following 
 
