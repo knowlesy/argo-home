@@ -1,0 +1,8 @@
+{
+    "appName": "external-dns",
+    "targetNamespace": "kube-system",
+    "chartRepo": "https://charts.bitnami.com/bitnami",
+    "chartName": "external-dns",
+    "chartVersion": "1.19.0",
+    "autoSync": "false"
+}
