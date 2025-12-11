@@ -3,17 +3,8 @@ Log in to hub.docker.com.
 Go to Account Settings > Security.
 Click New Access Token.
 Give it a description (e.g., "k3s-homelab") and copy the token.
-```
-kubectl create secret docker-registry regcred \
-  --docker-server=https://index.docker.io/v1/ \
-  --docker-username=<YOUR_DOCKERHUB_USERNAME> \
-  --docker-password=<YOUR_ACCESS_TOKEN> \
-  --docker-email=<YOUR_EMAIL> \
-  -n pihole
 
-```
 
-or use reflector
 
 You create the secret once in a central namespace (like kube-system).
 You add a special "annotation" to it.
@@ -33,7 +24,7 @@ kubectl create secret docker-registry regcred \
   --dry-run=client -o yaml > regcred.yaml
 ```
 
-step 3 
+step 4
 
 ```
 apiVersion: v1
@@ -53,7 +44,9 @@ data:
   .dockerconfigjson: <YOUR_ENCRYPTED_DATA_HERE>
 ```
 
-step 4
+step 5
 ```
 kubectl apply -f regcred.yaml
 ```
+
+step 6 > sync reflector
