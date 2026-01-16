@@ -5,7 +5,7 @@ env:
   valueFrom:
     secretKeyRef:
       name: cloudflare-api-token
-      key: token
+      key: api-token
 
 txtOwnerId: "k3s-home-cluster"
 # policy: sync
