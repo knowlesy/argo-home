@@ -13,3 +13,5 @@ sources:
 - ingress
 - service
 - crd
+
+policy: sync

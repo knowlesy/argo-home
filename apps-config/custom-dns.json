@@ -1,8 +1,0 @@
-{
-    "appName": "custom-dns",
-    "targetNamespace": "kube-system",
-    "chartRepo": "https://bedag.github.io/helm-charts",
-    "chartName": "raw",
-    "chartVersion": "2.0.0",
-    "autoSync": "false"
-}
