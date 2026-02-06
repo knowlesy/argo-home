@@ -1,0 +1,10 @@
+{
+    "appName": "garmin-grafana",
+    "targetNamespace": "garmin-grafana",
+    "chartRepo": "https://github.com/knowlesy/argo-home",
+    "chartPath": "apps/garmin-grafana",
+    "chartVersion": "1.0.0",
+    "autoSync": "true",
+    "privateValuesRepo": "https://github.com/knowlesy/argo-private",
+    "privateValuesPath": "configs/garmin-grafana/values.yaml"
+}
