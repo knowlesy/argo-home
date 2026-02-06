@@ -4,6 +4,8 @@ metadata:
   name: git-apps
   namespace: argocd
 spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
   generators:
     - git:
         repoURL: https://github.com/knowlesy/argo-home.git
@@ -12,7 +14,9 @@ spec:
           - path: "apps-git-config/*.json"
   template:
     metadata:
-      name: '{{appName}}'
+      name: '{{.appName}}'
+      labels:
+        app-source: git-chart
     spec:
       project: default
       sources:
@@ -22,20 +26,25 @@ spec:
         - repoURL: https://github.com/knowlesy/argo-private.git
           targetRevision: HEAD
           ref: private-repo
-        - repoURL: '{{repoURL}}'
-          targetRevision: '{{targetRevision}}'
-          path: '{{chartPath}}'
+        - repoURL: '{{.repoURL}}'
+          targetRevision: '{{.targetRevision}}'
+          path: '{{.chartPath}}'
           helm:
             valueFiles:
-              - $public-repo/apps-values/{{appName}}/values.yaml
-              - $private-repo/configs/{{appName}}/values.yaml
+              - $public-repo/apps-values/{{.appName}}/values.yaml
+              - $private-repo/configs/{{.appName}}/values.yaml
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{targetNamespace}}'
-      syncPolicy: {{- if eq .autoSync "true" }}
+        namespace: '{{.targetNamespace}}'
+      {{- if eq .autoSync "true" }}
+      syncPolicy:
         automated:
           prune: true
           selfHeal: true
-        {{- end }}
         syncOptions:
           - CreateNamespace=true
+      {{- else }}
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+      {{- end }}
