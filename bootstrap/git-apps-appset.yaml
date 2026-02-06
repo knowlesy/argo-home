@@ -5,36 +5,37 @@ metadata:
   namespace: argocd
 spec:
   generators:
-  - git:
-      repoURL: https://github.com/knowlesy/argo-home.git
-      revision: HEAD
-      files:
-      - path: "apps-git-config/*.json"
+    - git:
+        repoURL: https://github.com/knowlesy/argo-home.git
+        revision: HEAD
+        files:
+          - path: "apps-git-config/*.json"
   template:
     metadata:
       name: '{{appName}}'
     spec:
       project: default
       sources:
-      - repoURL: https://github.com/knowlesy/argo-home.git
-        targetRevision: HEAD
-        ref: public-repo
-      - repoURL: https://github.com/knowlesy/argo-private.git
-        targetRevision: HEAD
-        ref: private-repo
-      - repoURL: '{{repoURL}}'
-        targetRevision: '{{targetRevision}}'
-        path: '{{chartPath}}'
-        helm:
-          valueFiles:
-          - $public-repo/apps-values/{{appName}}/values.yaml
-          - $private-repo/configs/{{appName}}/values.yaml
+        - repoURL: https://github.com/knowlesy/argo-home.git
+          targetRevision: HEAD
+          ref: public-repo
+        - repoURL: https://github.com/knowlesy/argo-private.git
+          targetRevision: HEAD
+          ref: private-repo
+        - repoURL: '{{repoURL}}'
+          targetRevision: '{{targetRevision}}'
+          path: '{{chartPath}}'
+          helm:
+            valueFiles:
+              - $public-repo/apps-values/{{appName}}/values.yaml
+              - $private-repo/configs/{{appName}}/values.yaml
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{targetNamespace}}'
-      syncPolicy:
+      syncPolicy: {{- if eq .autoSync "true" }}
         automated:
           prune: true
           selfHeal: true
+        {{- end }}
         syncOptions:
-        - CreateNamespace=true
+          - CreateNamespace=true
