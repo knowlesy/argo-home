@@ -1,6 +1,3 @@
-# Non-sensitive configuration only
-# Sensitive values (credentials, domain) provided by private repo
-
 image:
   repository: arpanghosh8453/garmin-grafana
   tag: latest
