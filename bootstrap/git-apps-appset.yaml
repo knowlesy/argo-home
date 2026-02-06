@@ -16,17 +16,19 @@ spec:
     spec:
       project: default
       sources:
+      - repoURL: https://github.com/knowlesy/argo-home.git
+        targetRevision: HEAD
+        ref: public-repo
+      - repoURL: https://github.com/knowlesy/argo-private.git
+        targetRevision: HEAD
+        ref: private-repo
       - repoURL: '{{repoURL}}'
         targetRevision: '{{targetRevision}}'
         path: '{{chartPath}}'
-        ref: public-repo
         helm:
           valueFiles:
           - $public-repo/apps-values/{{appName}}/values.yaml
           - $private-repo/configs/{{appName}}/values.yaml
-      - repoURL: https://github.com/knowlesy/argo-private.git
-        targetRevision: HEAD
-        ref: private-repo
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{targetNamespace}}'
