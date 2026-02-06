@@ -1,7 +1,7 @@
 {
     "appName": "garmin-grafana",
-    "repoURL": "oci://ghcr.io/angeloxx/garmin-grafana",
-    "targetRevision": "v0.3.1-helm",
-    "chartPath": "",
+    "repoURL": "https://github.com/arpanghosh8453/garmin-grafana.git",
+    "targetRevision": "main",
+    "chartPath": "k8s",
     "targetNamespace": "garmin-grafana"
 }
