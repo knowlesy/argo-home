@@ -4,5 +4,6 @@
     "targetRevision": "main",
     "chartPath": "k8s",
     "targetNamespace": "garmin-grafana",
-    "autoSync": "false"
+    "autoSync": "false",
+    "ignoreDifferences": "true"
 }
