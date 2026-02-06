@@ -3,5 +3,6 @@
     "repoURL": "https://github.com/arpanghosh8453/garmin-grafana.git",
     "targetRevision": "main",
     "chartPath": "k8s",
-    "targetNamespace": "garmin-grafana"
+    "targetNamespace": "garmin-grafana",
+    "autoSync": "false"
 }
