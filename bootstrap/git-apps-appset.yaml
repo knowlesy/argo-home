@@ -20,13 +20,13 @@ spec:
         targetRevision: '{{targetRevision}}'
         path: '{{chartPath}}'
         ref: public-repo
+        helm:
+          valueFiles:
+          - $public-repo/apps-values/{{appName}}/values.yaml
+          - $private-repo/configs/{{appName}}/values.yaml
       - repoURL: https://github.com/knowlesy/argo-private.git
         targetRevision: HEAD
         ref: private-repo
-      helm:
-        valueFiles:
-        - $public-repo/apps-values/{{appName}}/values.yaml
-        - $private-repo/configs/{{appName}}/values.yaml
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{targetNamespace}}'
