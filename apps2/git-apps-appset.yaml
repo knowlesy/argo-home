@@ -44,7 +44,7 @@ spec:
 {{- end }}
         syncOptions:
         - CreateNamespace=true
-{{- if .ignoreDifferences }}
+{{- if eq .ignoreDifferences "true" }}
       ignoreDifferences:
       - group: apps
         kind: Deployment
