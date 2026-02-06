@@ -6,22 +6,22 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: https://github.com/knowlesy/argo-home.git
-      targetRevision: HEAD
-      ref: public-repo
-    - repoURL: https://github.com/knowlesy/argo-private.git
-      targetRevision: HEAD
-      ref: private-repo
-    - repoURL: https://github.com/arpanghosh8453/garmin-grafana
-      targetRevision: main
-      path: k8s
-      helm:
-        valueFiles:
-          - $public-repo/apps-values/garmin-grafana/values.yaml
-          - $private-repo/configs/garmin-grafana/values.yaml
+  - repoURL: https://github.com/knowlesy/argo-home.git
+    targetRevision: HEAD
+    ref: public-repo
+  - repoURL: https://github.com/knowlesy/argo-private.git
+    targetRevision: HEAD
+    ref: private-repo
+  - repoURL: https://github.com/arpanghosh8453/garmin-grafana
+    targetRevision: main
+    path: k8s
+    helm:
+      valueFiles:
+      - $public-repo/apps-values/garmin-grafana/values.yaml
+      - $private-repo/configs/garmin-grafana/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: garmin-grafana
   syncPolicy:
     syncOptions:
-      - CreateNamespace=true
+    - CreateNamespace=true
