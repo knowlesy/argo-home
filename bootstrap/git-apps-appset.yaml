@@ -5,28 +5,28 @@ metadata:
   namespace: argocd
 spec:
   generators:
-    - git:
-        repoURL: https://github.com/knowlesy/argo-home.git
-        revision: HEAD
-        files:
-          - path: "apps-git-config/*.json"
+  - git:
+      repoURL: https://github.com/knowlesy/argo-home.git
+      revision: HEAD
+      files:
+      - path: "apps-git-config/*.json"
   template:
     metadata:
       name: '{{appName}}'
     spec:
       project: default
       sources:
-        - repoURL: '{{repoURL}}'
-          targetRevision: '{{targetRevision}}'
-          path: '{{chartPath}}'
-          ref: public-repo
-        - repoURL: https://github.com/knowlesy/argo-private.git
-          targetRevision: HEAD
-          ref: private-repo
+      - repoURL: '{{repoURL}}'
+        targetRevision: '{{targetRevision}}'
+        path: '{{chartPath}}'
+        ref: public-repo
+      - repoURL: https://github.com/knowlesy/argo-private.git
+        targetRevision: HEAD
+        ref: private-repo
       helm:
         valueFiles:
-          - $public-repo/apps-values/{{appName}}/values.yaml
-          - $private-repo/configs/{{appName}}/values.yaml
+        - $public-repo/apps-values/{{appName}}/values.yaml
+        - $private-repo/configs/{{appName}}/values.yaml
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{targetNamespace}}'
@@ -35,4 +35,4 @@ spec:
           prune: true
           selfHeal: true
         syncOptions:
-          - CreateNamespace=true
+        - CreateNamespace=true
