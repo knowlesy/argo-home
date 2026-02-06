@@ -1,6 +1,6 @@
 {
     "appName": "garmin-grafana",
-    "repoURL": "https://github.com/knowlesy/argo-home.git",
+    "repoURL": "oci://ghcr.io/arpanghosh8453/garmin-grafana",
     "targetRevision": "HEAD",
     "chartPath": "apps/garmin-grafana",
     "targetNamespace": "garmin-grafana"
