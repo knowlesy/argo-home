@@ -4,7 +4,5 @@
     "chartRepo": "oci://ghcr.io/arpanghosh8453/garmin-grafana",
     "chartName": "garmin-grafana",
     "chartVersion": "v0.3.1-helm",
-    "autoSync": "true",
-    "privateValuesRepo": "https://github.com/knowlesy/argo-private",
-    "privateValuesPath": "configs/garmin-grafana/values.yaml"
+    "autoSync": "true"
 }
