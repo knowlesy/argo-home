@@ -1,0 +1,34 @@
+garmin:
+  image:
+    repository: ghcr.io/arpanghosh8453/garmin-fetch-data
+    tag: v0.3.0
+    pullPolicy: IfNotPresent
+  port: 8000
+
+  passwordSecret:
+    name: garmin-credentials
+    key: GARMIN_PASSWORD
+  tokens:
+    persistence:
+      enabled: true
+      size: 100Mi
+
+influxdb:
+  enabled: true
+  image:
+    repository: influxdb
+    tag: "1.11"
+  persistence:
+    enabled: true
+    size: 5Gi
+
+grafana:
+  enabled: true
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
