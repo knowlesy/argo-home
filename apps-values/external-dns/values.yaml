@@ -15,3 +15,5 @@ sources:
 - crd
 
 policy: sync
+
+logLevel: debug
